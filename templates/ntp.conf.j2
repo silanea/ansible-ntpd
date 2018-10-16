@@ -1,0 +1,23 @@
+{{ ansible_managed | comment }}
+
+# Safe default: restrict
+restrict default kod nomodify notrap nopeer noquery
+restrict -6 default kod nomodify notrap nopeer noquery
+
+# Allow local access
+restrict 127.0.0.1
+restrict -6 ::1
+
+{% if ntp.restrictions is defined %}
+# Custom restrictions
+	{% for loop in ntp.restrictions %}
+restrict {{ loop.restrictionstatement }}
+	{% endfor %}
+{% endif %}
+
+{% if ntp.pools is defined %}
+# Pools
+	{% for loop in ntp.pools %}
+pool {{ loop.poolstatement }}
+	{% endfor %}
+{% endif %}

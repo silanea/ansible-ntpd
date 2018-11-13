@@ -18,6 +18,6 @@ restrict {{ loop.restrictionstatement }}
 {% if ntp.pools is defined %}
 # Pools
 	{% for loop in ntp.pools %}
-pool {{ loop.poolstatement }}
+pool {{ loop.fqdn }}
 	{% endfor %}
 {% endif %}

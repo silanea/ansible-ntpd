@@ -13,7 +13,7 @@
 
 - name: TEMPORARY - copy config file
   copy:
-    src: /etc/ansible/roles/ntp-server/files/ntp.conf
+    src: ../files/ntp.conf
     dest: /etc/ntp.conf
   register: role_ntpserver_config
 # TODO
@@ -23,13 +23,13 @@
   service:
     name: "ntpd"
     enabled: yes
-    
+
 - name: Restart ntpd if configuration has changed
   service:
     name: "ntpd"
     state: restarted
-  when: role_ntpserver_config.changed    
+  when: role_ntpserver_config.changed
 
 
 #- name: Sync local time
-#  
+#
